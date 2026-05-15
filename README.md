@@ -34,9 +34,9 @@ That means you run one command, and the wrapper decides the working style for yo
 
 In plain English:
 
-- use **CE-style structure** for clear, disciplined work
-- use **broader orchestration** only when the task is messy or ambiguous
-- keep work **cost-aware** by default
+- use structured execution for clear, disciplined work
+- use broader orchestration only when the task is messy or ambiguous
+- keep work cost-aware by default
 
 You should not have to remember when to use every plugin yourself.
 
@@ -50,6 +50,10 @@ You should not have to remember when to use every plugin yourself.
 - `nai-review` — review, cleanup, and quality passes
 - `nai-architecture` — architecture and structural choices
 - `nai-agent-native-audit` — checks whether the codebase is easy for agents to work in
+- `nai-agent-native-architecture` — shapes systems to be easier for agents to modify safely
+- `nai-finance` — finance, assumptions, scenarios, and modeling
+- `nai-debug` — debugging and fault isolation
+- `nai-research` — docs lookup and fact-finding before action
 
 ## Fast start
 
@@ -108,6 +112,8 @@ The Claude Code files live here:
 
 - `claude-code/settings.template.json`
 - `claude-code/skills/`
+- `scripts/check-norfolk-setup.ps1`
+- `scripts/check-norfolk-setup.sh`
 
 These files are templates for your local Claude Code setup.
 
@@ -139,6 +145,8 @@ README.md
 | `npm run db:seed` | Seed database |
 | `npm run test` | Run tests |
 | `npm run lint` | Run ESLint |
+| `pwsh .\scripts\check-norfolk-setup.ps1` | Check Norfolk Claude setup on Windows |
+| `bash ./scripts/check-norfolk-setup.sh` | Check Norfolk Claude setup on Mac/Linux/Replit |
 
 ## How to think about model cost
 
