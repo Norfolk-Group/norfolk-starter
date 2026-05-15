@@ -1,145 +1,130 @@
 ---
-description:
+description: Norfolk starter repo rules for Claude Code and similar agents
 alwaysApply: true
 ---
 
-# Norfolk Starter — Project Context for Cursor / Claude Code
+# Norfolk Starter
 
-> READ THIS BEFORE MAKING ANY CHANGES.
+Read this before making changes.
 
----
+## What this repo is
 
-## WHAT THIS IS
+This repo is the main Norfolk starter repo.
 
-A **clean boilerplate** for Norfolk AI web applications. Clone and rename for each new project.
+It is meant to be:
 
----
+- a clean application starter
+- a Norfolk AI operating layer
+- a base for Claude Code and other AI-assisted workflows
 
-## TECH STACK
+## Main rule
 
-| Layer | Technology |
-|-------|-----------|
-| Runtime | Node.js >=20 |
-| Framework | Next.js 16 (App Router), Turbopack |
-| Language | TypeScript 5 (strict) |
-| UI | React 19 |
-| Styling | Tailwind CSS v4 + shadcn/ui (new-york) + Radix |
-| Charts | Recharts |
-| Validation | Zod + react-hook-form |
-| ORM / DB | Prisma 6 + PostgreSQL 16 |
-| Auth | Clerk v7 (@clerk/nextjs) |
-| Icons | Lucide |
-| Testing | Vitest |
-| Deployment | Vercel + GitHub Actions |
+Optimize for:
 
----
+- clarity
+- practicality
+- reproducibility
+- small scoped changes
+- long-term maintainability
 
-## FILE STRUCTURE
+## Norfolk AI working model
 
-```
-app/
-  layout.tsx               ← ROOT layout with <ClerkProvider>
-  globals.css              ← Tailwind v4 imports + theme
-  (app)/
-    layout.tsx             ← Authenticated shell (header + UserButton)
-    page.tsx               ← Home page
-  api/
-    health/route.ts        ← Health check endpoint
-  sign-in/[[...sign-in]]/  ← Clerk sign-in
-  sign-up/[[...sign-up]]/  ← Clerk sign-up
-components/
-  ui/                      ← shadcn primitives
-lib/
-  db.ts                    ← Prisma client singleton
-  utils.ts                 ← cn() utility
-  http/api-response.ts     ← jsonOk / jsonErr helpers
-prisma/
-  schema.prisma            ← Database schema (add your models here)
-  seed.ts                  ← Seed data
-public/
-  logo-*.svg               ← Norfolk AI brand logos
-middleware.ts              ← Clerk auth middleware
-docker-compose.yml         ← Local Postgres
-.env.example               ← Environment variable template
-```
+The preferred Norfolk pattern is:
 
----
+- structured execution by default
+- broader orchestration only when the task is ambiguous
+- cost-aware behavior by default
 
-## AUTHENTICATION — DO NOT MODIFY
+In plain English:
 
-- `middleware.ts` at PROJECT ROOT
-- Uses `clerkMiddleware` + `createRouteMatcher`
-- Public routes: `/sign-in`, `/sign-up`, `/sso-callback`
-- `ClerkProvider` wraps app in `app/layout.tsx`
-- `UserButton` in `app/(app)/layout.tsx` header
+- use stronger reasoning for planning and architecture
+- use cheaper execution for routine coding
+- avoid reprocessing the whole repo every turn
 
----
+## Norfolk wrapper commands
 
-## DATABASE
+The Norfolk Claude commands use the `nai-` prefix.
 
-- **Local dev:** Docker Postgres via `docker-compose.yml`
-- **Production:** Neon PostgreSQL (pooled `DATABASE_URL` on Vercel)
-- Prisma Client generated to `lib/generated/prisma` (gitignored)
-- `tsconfig.json` maps `@prisma/client` to that folder
-- `postinstall` runs `prisma generate`
+These are wrappers, not raw low-level skills.
 
----
+They should make decisions easier for the user.
 
-## API CONVENTIONS
+Main commands:
 
-- JSON envelope: `{ ok: true, data }` on success
-- Errors: `{ ok: false, error: { message, code?, details? } }`
-- Helpers: `jsonOk()` / `jsonErr()` from `lib/http/api-response.ts`
+- `nai-help`
+- `nai-update`
+- `nai-plan`
+- `nai-feature`
+- `nai-frontend`
+- `nai-review`
+- `nai-architecture`
+- `nai-agent-native-audit`
 
----
+## Expected wrapper behavior
 
-## BRAND
+Each Norfolk wrapper should:
 
-- **Colors:** Navy `#1E2D45`, Teal `#0097A7`, Cyan `#00BCD4`, Gold `#FFC107`
-- **Theme:** Dark mode by default
-- **Font:** Geist (sans + mono)
-- **Logos:** `/public/logo-*.svg`
+1. classify the task as small, normal, or hard
+2. keep the scope tight
+3. avoid unnecessary whole-repo analysis
+4. use structured execution for clear work
+5. use broader orchestration only when ambiguity is high
+6. favor planning once, then execution in slices
+7. keep review late instead of constant
 
----
+## Repo structure goals
 
-## DEPLOYMENT
+This repo should contain:
 
-- Push to `main` → Vercel auto-deploys
-- GitHub Actions workflow in `.github/workflows/vercel-deploy.yml`
-- Custom domain configured on Vercel + DNS on GoDaddy (norfolk.ai)
+- app starter code
+- Norfolk documentation
+- Claude Code setup files
+- Norfolk wrapper skills
+- simple setup instructions for Windows, Mac, and Replit
+- simple check and repair guidance
 
----
+## AI editing rules
 
-## SCRIPTS
+1. Do not make the repo more complicated than necessary.
+2. Prefer simple names over clever names.
+3. Keep setup docs plain enough for a non-technical operator.
+4. Prefer one-command workflows over multi-step memory-heavy workflows.
+5. Do not require the user to remember when to use every plugin manually.
+6. Explain things in plain English.
+7. Keep Norfolk files organized and discoverable.
+8. Avoid scattering setup logic across too many places.
 
-```bash
-npm run dev          # Local dev (Turbopack)
-npm run build        # Production build
-npm run db:migrate   # Prisma migrations
-npm run db:studio    # Prisma Studio GUI
-npm run db:seed      # Seed database
-npm run test         # Run tests
-npm run lint         # ESLint
-```
+## Codebase rules
 
----
+1. Do not change auth, database, or deployment behavior casually.
+2. Ask before changing core production assumptions.
+3. Keep files reasonably small and split by concern when they grow.
+4. Prefer incremental structural improvement over dramatic rewrites.
+5. Keep starter templates generic enough to reuse.
 
-## RULES FOR AI ASSISTANTS
+## Skill location rules
 
-1. **NEVER** change `middleware.ts` without explicit permission
-2. **NEVER** change `DATABASE_URL` or run migrations without permission
-3. **NEVER** modify `app/layout.tsx` ClerkProvider wrapper
-4. **NEVER** hardcode secrets or API keys
-5. **ALWAYS** use `next/image` with `unoptimized` for SVG files
-6. **ASK** before installing new packages
-7. **ASK** before changing auth, database, or deployment config
-8. **COMMIT** only when explicitly asked
-9. Docker Postgres for local dev is valid — localhost is not broken
-10. Keep files under ~500 lines — split by concern when growing
+Claude Code starter skills should live in:
 
----
+- `claude-code/skills/<skill-name>/SKILL.md`
 
-## AGENT SKILLS
+If Cursor-specific parallels are added later, keep them aligned in purpose.
 
-Skills live in `.agents/skills/<name>/SKILL.md` (Cursor) and `.claude/skills/<name>/SKILL.md` (Claude Code).
-When editing a skill, update BOTH to identical content. Keep skills compact (<120 lines).
+## Documentation rules
+
+The README must explain:
+
+- what this repo is
+- what to do first
+- how to set up Claude Code
+- what the `nai-` commands do
+- where to look when something is broken
+
+## Practical default
+
+If unsure, optimize for the operator:
+
+- fewer commands to remember
+- fewer moving parts
+- stronger defaults
+- clearer docs
