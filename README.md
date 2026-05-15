@@ -1,129 +1,176 @@
 # Norfolk Starter
 
-Clean boilerplate for **Norfolk AI** web applications. Clone this repo to start a new project with the full stack pre-configured.
+A practical starter repo for Norfolk AI web projects.
 
-## Tech stack
+This repo is meant to do two jobs:
 
-| Layer | Technology |
-|-------|-----------|
-| Framework | **Next.js 16** (App Router) + **React 19** + **TypeScript 5** |
-| Styling | **Tailwind CSS 4** + **shadcn/ui** (new-york) + **Radix** primitives |
-| Database | **Prisma 6** + **PostgreSQL 16** (Neon prod / Docker local) |
-| Auth | **Clerk v7** |
-| Charts | **Recharts** |
-| Validation | **Zod** + **react-hook-form** |
-| Icons | **Lucide** |
-| Testing | **Vitest** |
-| Deployment | **Vercel** + **GitHub Actions** |
+- give you a clean full-stack application starting point
+- give you a Norfolk AI operating layer for Claude Code and similar tools
 
-## Getting started
+## What is in this repo
+
+This starter includes:
+
+- Next.js + React + TypeScript
+- Tailwind + shadcn/ui
+- Prisma + PostgreSQL
+- Clerk auth
+- Norfolk project rules in `CLAUDE.md`
+- Norfolk AI wrapper skills with the `nai-` prefix for Claude Code
+
+## Who this is for
+
+Use this repo if you want:
+
+- a clean app starter
+- a repeatable Claude Code setup
+- Norfolk AI wrapper commands that are easier to remember than raw tool combinations
+
+## The Norfolk AI idea
+
+The `nai-` commands are wrappers.
+
+That means you run one command, and the wrapper decides the working style for you.
+
+In plain English:
+
+- use **CE-style structure** for clear, disciplined work
+- use **broader orchestration** only when the task is messy or ambiguous
+- keep work **cost-aware** by default
+
+You should not have to remember when to use every plugin yourself.
+
+## Main Norfolk commands
+
+- `nai-help` — explains the Norfolk commands in plain English
+- `nai-update` — checks whether your Claude setup looks healthy
+- `nai-plan` — planning and decomposition
+- `nai-feature` — default command for feature work
+- `nai-frontend` — UI and design-to-code work
+- `nai-review` — review, cleanup, and quality passes
+- `nai-architecture` — architecture and structural choices
+- `nai-agent-native-audit` — checks whether the codebase is easy for agents to work in
+
+## Fast start
+
+### 1. Clone the repo
 
 ```bash
-# 1. Clone and rename
-git clone https://github.com/ricardocidale/norfolk-starter.git my-new-project
+git clone https://github.com/Norfolk-Group/norfolk-starter.git my-new-project
 cd my-new-project
+```
 
-# 2. Set up environment
-cp .env.example .env
-# Edit .env with your Clerk keys and database URL
+### 2. Install dependencies
 
-# 3. Start local Postgres
-docker compose up -d
-
-# 4. Install dependencies
+```bash
 npm install
+```
 
-# 5. Run database migrations
+### 3. Set environment variables
+
+```bash
+cp .env.example .env
+```
+
+Then fill in your real values.
+
+### 4. Start local database
+
+```bash
+docker compose up -d
+```
+
+### 5. Run Prisma
+
+```bash
 npx prisma migrate dev
+```
 
-# 6. Start dev server
+### 6. Start the app
+
+```bash
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000).
+Then open `http://localhost:3000`.
 
-## Starting a new project from this template
+## Claude Code setup
 
-1. Clone the repo and rename the folder
-2. Create a new Clerk application at [dashboard.clerk.com](https://dashboard.clerk.com)
-3. Create a new Neon database at [console.neon.tech](https://console.neon.tech)
-4. Update `.env` with your new keys
-5. Add your models to `prisma/schema.prisma`
-6. Run `npx prisma migrate dev` to create tables
-7. Build your app in `app/(app)/page.tsx` and `app/api/`
+The repo includes Norfolk AI starter files for Claude Code.
+
+Start here:
+
+- Windows: `docs/setup-claude-code-windows.md`
+- Mac: `docs/setup-claude-code-mac.md`
+- Replit: `docs/setup-claude-code-replit.md`
+
+The Claude Code files live here:
+
+- `claude-code/settings.template.json`
+- `claude-code/skills/`
+
+These files are templates for your local Claude Code setup.
 
 ## Project structure
 
-```
+```text
 app/
-  layout.tsx               Root layout (ClerkProvider, Geist fonts, dark mode)
-  globals.css              Tailwind v4 theme and variables
-  (app)/                   Authenticated routes
-    layout.tsx             Header with UserButton
-    page.tsx               Home page (edit this)
-  api/
-    health/route.ts        Health check endpoint
-  sign-in/                 Clerk sign-in page
-  sign-up/                 Clerk sign-up page
 components/
-  ui/                      shadcn/ui components
 lib/
-  db.ts                    Prisma client singleton
-  utils.ts                 cn() utility
-  http/api-response.ts     JSON response helpers
 prisma/
-  schema.prisma            Database schema
-  seed.ts                  Seed data
 public/
-  logo-*.svg               Norfolk AI brand assets
+claude-code/
+  settings.template.json
+  skills/
+docs/
+scripts/
+CLAUDE.md
+README.md
 ```
 
 ## Scripts
 
 | Command | Purpose |
-|---------|---------|
-| `npm run dev` | Dev server (Turbopack) |
+|---|---|
+| `npm run dev` | Start local dev server |
 | `npm run build` | Production build |
 | `npm run db:migrate` | Run Prisma migrations |
 | `npm run db:studio` | Open Prisma Studio |
 | `npm run db:seed` | Seed database |
-| `npm run test` | Run Vitest tests |
-| `npm run lint` | ESLint |
+| `npm run test` | Run tests |
+| `npm run lint` | Run ESLint |
 
-## Adding shadcn components
+## How to think about model cost
 
-```bash
-npx shadcn@latest add button
-npx shadcn@latest add dialog
-npx shadcn@latest add table
-```
+The intended Norfolk pattern is:
 
-Components are added to `components/ui/`.
+- use stronger reasoning for planning and architecture
+- use cheaper execution for routine coding
+- keep requests small and scoped
+- avoid reprocessing the whole repo over and over
 
-## API conventions
+In plain English:
 
-All API routes use a standard JSON envelope:
+- use the expensive brain to decide
+- use the cheaper brain to build
 
-```typescript
-import { jsonOk, jsonErr } from "@/lib/http/api-response";
+## If you are new to this repo
 
-// Success
-return jsonOk({ items }, 200);
+Do this first:
 
-// Error
-return jsonErr("Not found", 404, "NOT_FOUND");
-```
+1. get the app running
+2. read `CLAUDE.md`
+3. install the Claude Code files from `claude-code/`
+4. run `nai-help`
+5. use `nai-feature` for real work
 
-## Documentation
+## Current status
 
-| File | Purpose |
-|------|---------|
-| **README.md** | This file — setup, structure, conventions |
-| **CLAUDE.md** | AI assistant rules and project contracts |
-| **.cursorrules** | Cursor-specific AI context |
+This repo is being turned into the main Norfolk starter repo for:
 
-## Deploy (Vercel)
+- app scaffolding
+- Cursor support
+- Claude Code support
+- Norfolk AI wrapper skills
 
-1. Create a Neon PostgreSQL instance and set `DATABASE_URL` in Vercel
-2. Set Clerk keys in Vercel environment variables
-3. Push to `main` — Vercel auto-deploys
+That means the repo is both a software starter and an operating system for AI-assisted work.
