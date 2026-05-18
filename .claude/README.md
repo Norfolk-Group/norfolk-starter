@@ -5,13 +5,13 @@ This repo follows the Norfolk Agent-Native Project Standard.
 ## Project
 
 - Name: norfolk-starter
-- Path: F:\Projects\norfolk-starter
+- Path: F:\Repos\norfolk-starter
 - Remote: 
 - Priority: starter
 
 ## Local rules
 
-- Active repo path must remain under F:\Projects.
+- Active repo path must remain under F:\Repos.
 - Do not execute this repo from OneDrive.
 - Repo-local .claude is the source of truth for project-specific agent instructions.
 - Global C:\Users\ricar\.claude is runtime only.
